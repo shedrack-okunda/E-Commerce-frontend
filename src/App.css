@@ -1,0 +1,21 @@
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+}
+
+.App .App-header {
+  display: flex;
+  gap: 20px;
+}
+
+.App-header nav ul {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.logo a {
+  font-size: 2.4rem;
+}
