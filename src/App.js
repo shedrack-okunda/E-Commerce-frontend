@@ -1,22 +1,36 @@
-import { useEffect, useState } from "react";
-import "./App.css";
+import { useSelector } from "react-redux";
+import {
+  Navigate,
+  Route,
+  RouterProvider,
+  createBrowserRouter,
+  createRoutesFromElements,
+} from "react-router-dom";
 
 function App() {
-  const [data, setData] = useState(null);
+  const isAuthChecked = useSelector();
+  const loggedInUser = useSelector();
 
-  useEffect(() => {
-    fetch("/api")
-      .then((res) => res.json())
-      .then((data) => setData(data.message));
-  }, []);
+  const routes = createBrowserRouter(
+    createRoutesFromElements(
+      <>
+        <Route path="/signup" />
+        <Route path="/login" />
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        <p>{!data ? "Loading..." : data}</p>
-      </header>
-    </div>
+        {loggedInUser?.isAdmin ? (
+          <>
+            <Route path="*" element={<Navigate to={"/"} />} />
+          </>
+        ) : (
+          <>
+            <Route path="/" element={""} />
+          </>
+        )}
+      </>,
+    ),
   );
+
+  return isAuthChecked ? <RouterProvider router={routes} /> : "";
 }
 
 export default App;
