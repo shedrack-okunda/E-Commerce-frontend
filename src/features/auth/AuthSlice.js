@@ -28,8 +28,8 @@ const initialState = {
   resetPasswordStatus: "idle",
   resetPasswordSuccessMessage: null,
   resetPasswordError: null,
-  successMessage: null,
   isAuthChecked: false,
+  successMessage: null,
 };
 
 export const signupAsync = createAsyncThunk(
@@ -123,7 +123,7 @@ export const logoutAsync = createAsyncThunk("auth/logoutAsync", async () => {
 });
 
 const authSlice = createSlice({
-  name: "authSlice",
+  name: "auth",
   initialState: initialState,
   reducers: {
     clearAuthSuccessMessage: (state) => {
@@ -304,10 +304,10 @@ const authSlice = createSlice({
 // exporting selectors
 export const selectAuthStatus = (state) => state.AuthSlice.status;
 export const selectAuthErrors = (state) => state.AuthSlice.errors;
-export const selectLoggedInUser = (state) => state.AuthSlice.loggedInUser;
+export const selectLoggedInUser = (state) => state.loggedInUser;
 export const selectAuthSuccessMessage = (state) =>
   state.AuthSlice.successMessage;
-export const selectIsAuthChecked = (state) => state.AuthSlice.isAuthChecked;
+export const selectIsAuthChecked = (state) => state.isAuthChecked;
 export const selectResendOtpStatus = (state) => state.AuthSlice.resendOtpStatus;
 export const selectResendOtpSuccessMessage = (state) =>
   state.AuthSlice.resendOtpSuccessMessage;
