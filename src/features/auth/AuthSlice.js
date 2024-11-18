@@ -8,7 +8,7 @@ import {
   resetPassword,
   signup,
   verifyOtp,
-} from "./auth/AuthApi";
+} from "./AuthApi";
 
 const initialState = {
   status: "idle",
