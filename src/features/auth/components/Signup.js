@@ -9,8 +9,9 @@ import {
   signupAsync,
 } from "../AuthSlice";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
+  Button,
   FormHelperText,
   Stack,
   TextField,
@@ -35,8 +36,8 @@ export const Signup = () => {
     reset,
     formState: { errors },
   } = useForm();
-  const navigate = useNavigate;
-  const theme = useTheme;
+  // const navigate = useNavigate;
+  const theme = useTheme();
   const is900 = useMediaQuery(theme.breakpoints.down(900));
   const is480 = useMediaQuery(theme.breakpoints.down(480));
 
@@ -131,7 +132,105 @@ export const Signup = () => {
                 <FormHelperText error>{errors.name}</FormHelperText>
               )}
             </motion.div>
+
+            <motion.div>
+              <TextField
+                fullWidth
+                {...register("email", {
+                  required: "Email is required",
+                  pattern: {
+                    value:
+                      /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g,
+                    message: "Enter a valid email",
+                  },
+                })}
+                placeholder="Email"
+              />
+              {errors.email && (
+                <FormHelperText error>{errors.email.message}</FormHelperText>
+              )}
+            </motion.div>
+
+            <motion.div>
+              <TextField
+                fullWidth
+                {...register("password", {
+                  required: "Password is required",
+                  pattern: {
+                    value:
+                      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm,
+                    message: `at least 8 characters, must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number, Can contain special characters`,
+                  },
+                })}
+                placeholder="Password"
+              />
+              {errors.password && (
+                <FormHelperText>{errors.password.message}</FormHelperText>
+              )}
+            </motion.div>
+
+            <motion.div>
+              <TextField
+                fullWidth
+                {...register("confirmPassword", {
+                  required: "Confirm Password is required",
+                  validate: (value, fromValues) =>
+                    value === fromValues.password || "Passwords doesn't match",
+                })}
+                placeholder="Confirm Password"
+              />
+              {errors.confirmPassword && (
+                <FormHelperText>
+                  {errors.confirmPassword.message}
+                </FormHelperText>
+              )}
+            </motion.div>
           </MotionConfig>
+
+          <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 1 }}>
+            <Button
+              sx={{ height: "2.5rem" }}
+              fullWidth
+              loading={status === "pending"}
+              type="submit"
+              variant="contained"
+            >
+              Signup
+            </Button>
+          </motion.div>
+
+          <Stack
+            flexDirection={"row"}
+            justifyContent={"space-between"}
+            alignItems={"center"}
+            flexWrap={"wrap-reverse"}
+          >
+            <MotionConfig whileHover={{ x: 2 }} whileTop={{ scale: 1.05 }}>
+              <motion.div>
+                <Typography
+                  mr={"1.5rem"}
+                  sx={{ textDecoration: "none", color: "text.primary" }}
+                  to={"/forgot-password"}
+                  component={Link}
+                >
+                  Forgot password
+                </Typography>
+              </motion.div>
+
+              <motion.div>
+                <Typography
+                  sx={{ textDecoration: "none", color: "text.primary" }}
+                  to={"/login"}
+                  component={Link}
+                >
+                  Already have an account:
+                  <span style={{ color: theme.palette.primary.dark }}>
+                    Login
+                  </span>
+                </Typography>
+              </motion.div>
+            </MotionConfig>
+          </Stack>
         </Stack>
       </Stack>
     </Stack>
