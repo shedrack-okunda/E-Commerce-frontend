@@ -36,44 +36,44 @@ export const Signup = () => {
     reset,
     formState: { errors },
   } = useForm();
-  // const navigate = useNavigate;
+  const navigate = useNavigate;
   const theme = useTheme();
   const is900 = useMediaQuery(theme.breakpoints.down(900));
   const is480 = useMediaQuery(theme.breakpoints.down(480));
 
   //   handle user redirection
-  //   useEffect(() => {
-  //     if (loggedInUser && !loggedInUser?.isVerified) {
-  //       navigate("/verify-otp");
-  //     } else if (loggedInUser) {
-  //       navigate("/");
-  //     }
-  //   }, [loggedInUser]);
+  useEffect(() => {
+    if (loggedInUser && !loggedInUser?.isVerified) {
+      navigate("/verify-otp");
+    } else if (loggedInUser) {
+      navigate("/");
+    }
+  }, [loggedInUser]);
 
   //   handle signup error and toast them
-  //   useEffect(() => {
-  //     if (error) {
-  //       toast.error(error.message);
-  //     }
-  //   }, [error]);
+  useEffect(() => {
+    if (error) {
+      toast.error(error.message);
+    }
+  }, [error]);
 
-  //   useEffect(() => {
-  //     if (status === "fulfilled") {
-  //       toast.success("Welcome! Verify your email to start shopping.");
-  //       reset();
-  //     }
+  useEffect(() => {
+    if (status === "fulfilled") {
+      toast.success("Welcome! Verify your email to start shopping.");
+      reset();
+    }
 
-  //     return () => {
-  //       dispatch(clearSignupError());
-  //       dispatch(resetSignupStatus());
-  //     };
-  //   }, [status]);
+    return () => {
+      dispatch(clearSignupError());
+      dispatch(resetSignupStatus());
+    };
+  }, [status]);
 
   //   handles signup and dispatches the signup action with credentials that api requires
   const handleSignup = (data) => {
-    // const cred = { ...data };
-    // delete cred.confirmPassword;
-    // dispatch(signupAsync(cred));
+    const cred = { ...data };
+    delete cred.confirmPassword;
+    dispatch(signupAsync(cred));
   };
 
   return (
@@ -154,6 +154,7 @@ export const Signup = () => {
             <motion.div>
               <TextField
                 fullWidth
+                type="password"
                 {...register("password", {
                   required: "Password is required",
                   pattern: {
@@ -172,6 +173,7 @@ export const Signup = () => {
             <motion.div>
               <TextField
                 fullWidth
+                type="password"
                 {...register("confirmPassword", {
                   required: "Confirm Password is required",
                   validate: (value, fromValues) =>
@@ -191,7 +193,7 @@ export const Signup = () => {
             <Button
               sx={{ height: "2.5rem" }}
               fullWidth
-              loading={status === "pending"}
+              // loading={status === "pending"}
               type="submit"
               variant="contained"
             >
@@ -223,7 +225,7 @@ export const Signup = () => {
                   to={"/login"}
                   component={Link}
                 >
-                  Already have an account:
+                  Already have an account?{" "}
                   <span style={{ color: theme.palette.primary.dark }}>
                     Login
                   </span>

@@ -302,36 +302,30 @@ const authSlice = createSlice({
 });
 
 // exporting selectors
-export const selectAuthStatus = (state) => state.AuthSlice.status;
-export const selectAuthErrors = (state) => state.AuthSlice.errors;
+export const selectAuthStatus = (state) => state.status;
+export const selectAuthErrors = (state) => state.errors;
 export const selectLoggedInUser = (state) => state.loggedInUser;
-export const selectAuthSuccessMessage = (state) =>
-  state.AuthSlice.successMessage;
+export const selectAuthSuccessMessage = (state) => state.successMessage;
 export const selectIsAuthChecked = (state) => state.isAuthChecked;
-export const selectResendOtpStatus = (state) => state.AuthSlice.resendOtpStatus;
+export const selectResendOtpStatus = (state) => state.resendOtpStatus;
 export const selectResendOtpSuccessMessage = (state) =>
-  state.AuthSlice.resendOtpSuccessMessage;
-export const selectResendOtpError = (state) => state.AuthSlice.resendOtpError;
-export const selectSignupStatus = (state) => state.AuthSlice.signupStatus;
-export const selectSignupError = (state) => state.AuthSlice.signupError;
-export const selectLoginStatus = (state) => state.AuthSlice.loginStatus;
-export const selectLoginError = (state) => state.AuthSlice.loginError;
+  state.resendOtpSuccessMessage;
+export const selectResendOtpError = (state) => state.resendOtpError;
+export const selectSignupStatus = (state) => state.signupStatus;
+export const selectSignupError = (state) => state.signupError;
+export const selectLoginStatus = (state) => state.loginStatus;
+export const selectLoginError = (state) => state.loginError;
 export const selectOtpVerificationStatus = (state) =>
-  state.AuthSlice.otpVerificationStatus;
-export const selectOtpVerificationError = (state) =>
-  state.AuthSlice.otpVerificationError;
-export const selectForgotPasswordStatus = (state) =>
-  state.AuthSlice.forgotPasswordStatus;
+  state.otpVerificationStatus;
+export const selectOtpVerificationError = (state) => state.otpVerificationError;
+export const selectForgotPasswordStatus = (state) => state.forgotPasswordStatus;
 export const selectForgotPasswordSuccessMessage = (state) =>
-  state.AuthSlice.forgotPasswordSuccessMessage;
-export const selectForgotPasswordError = (state) =>
-  state.AuthSlice.forgotPasswordError;
-export const selectResetPasswordStatus = (state) =>
-  state.AuthSlice.resetPasswordStatus;
+  state.forgotPasswordSuccessMessage;
+export const selectForgotPasswordError = (state) => state.forgotPasswordError;
+export const selectResetPasswordStatus = (state) => state.resetPasswordStatus;
 export const selectResetPasswordSuccessMessage = (state) =>
-  state.AuthSlice.resetPasswordSuccessMessage;
-export const selectResetPasswordError = (state) =>
-  state.AuthSlice.resetPasswordError;
+  state.resetPasswordSuccessMessage;
+export const selectResetPasswordError = (state) => state.resetPasswordError;
 
 export const {
   clearAuthSuccessMessage,
