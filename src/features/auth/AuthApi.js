@@ -1,11 +1,12 @@
 import { axio } from "../../config/axios";
 
-export const signup = async (cred) => {
+export const signupApi = async (cred) => {
   try {
     const res = await axio.post("auth/signup", cred);
     return res.data;
   } catch (error) {
-    throw error.response.data;
+    const message = error.response ? error.response.data : error.message;
+    throw new Error(message);
   }
 };
 

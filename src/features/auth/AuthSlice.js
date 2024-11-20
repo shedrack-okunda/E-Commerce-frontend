@@ -6,7 +6,7 @@ import {
   logout,
   resendOtp,
   resetPassword,
-  signup,
+  signupApi,
   verifyOtp,
 } from "./AuthApi";
 
@@ -34,12 +34,14 @@ const initialState = {
 
 export const signupAsync = createAsyncThunk(
   "auth/signupAsync",
-  async (cred) => {
+  async (cred, { rejectWithValue }) => {
     try {
-      const res = await signup(cred);
+      const res = await signupApi(cred);
       return res;
     } catch (error) {
-      throw error.response.data;
+      return rejectWithValue(
+        error.message || error.response?.data || "An error occurred",
+      );
     }
   },
 );

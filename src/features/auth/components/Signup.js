@@ -35,6 +35,7 @@ export const Signup = () => {
     handleSubmit,
     reset,
     formState: { errors },
+    getValues,
   } = useForm();
   const navigate = useNavigate;
   const theme = useTheme();
@@ -125,6 +126,7 @@ export const Signup = () => {
             <motion.div>
               <TextField
                 fullWidth
+                type="text"
                 {...register("name", { required: "Username is required" })}
                 placeholder="Username"
               />
@@ -136,6 +138,7 @@ export const Signup = () => {
             <motion.div>
               <TextField
                 fullWidth
+                type="email"
                 {...register("email", {
                   required: "Email is required",
                   pattern: {
@@ -176,8 +179,9 @@ export const Signup = () => {
                 type="password"
                 {...register("confirmPassword", {
                   required: "Confirm Password is required",
-                  validate: (value, fromValues) =>
-                    value === fromValues.password || "Passwords doesn't match",
+                  validate: (value) =>
+                    value === getValues("password") ||
+                    "Passwords does not match",
                 })}
                 placeholder="Confirm Password"
               />
@@ -193,7 +197,7 @@ export const Signup = () => {
             <Button
               sx={{ height: "2.5rem" }}
               fullWidth
-              // loading={status === "pending"}
+              loading={status === "pending"}
               type="submit"
               variant="contained"
             >
