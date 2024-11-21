@@ -28,20 +28,7 @@ function App() {
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/verify-otp" element={<OtpVerificationPage />} />
-        <Route path="/" />
-        <Route path="/" />
-        <Route path="/" />
-        <Route path="/" />
-
-        {loggedInUser?.isAdmin ? (
-          <>
-            <Route path="*" element={<Navigate to={"/"} />} />
-          </>
-        ) : (
-          <>
-            <Route path="/" element={""} />
-          </>
-        )}
+        <Route path="/" element={<Navigate to="/login" />} />
       </>,
     ),
   );

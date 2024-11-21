@@ -66,10 +66,9 @@ const userSlice = createSlice({
 });
 
 // exporting selectors
-export const selectUserStatus = (state) => state.UserSlice.status;
-export const selectUserInfo = (state) => state.UserSlice.userInfo;
-export const selectUserErrors = (state) => state.UserSlice.errors;
-export const selectUserSuccessMessage = (state) =>
-  state.UserSlice.successMessage;
+export const selectUserStatus = (state) => state.status;
+export const selectUserInfo = (state) => state.userInfo;
+export const selectUserErrors = (state) => state.errors;
+export const selectUserSuccessMessage = (state) => state.successMessage;
 
 export default userSlice.reducer;

@@ -36,7 +36,7 @@ export const Login = () => {
     reset,
     formState: { errors },
   } = useForm();
-  const navigate = useNavigate;
+  const navigate = useNavigate();
   const theme = useTheme();
   const is900 = useMediaQuery(theme.breakpoints.down(900));
   const is480 = useMediaQuery(theme.breakpoints.down(480));
@@ -59,7 +59,7 @@ export const Login = () => {
 
   //   handle login status and dispatches reset actions to relevant states in cleanup
   useEffect(() => {
-    if (status === "fulfilled" && loggedInUser?.isVerified === true) {
+    if (status === "fulfilled" && loggedInUser?.isVerified) {
       toast.success(`Login successful`);
       reset();
     }

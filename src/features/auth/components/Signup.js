@@ -37,7 +37,7 @@ export const Signup = () => {
     formState: { errors },
     getValues,
   } = useForm();
-  const navigate = useNavigate;
+  const navigate = useNavigate();
   const theme = useTheme();
   const is900 = useMediaQuery(theme.breakpoints.down(900));
   const is480 = useMediaQuery(theme.breakpoints.down(480));
@@ -126,12 +126,15 @@ export const Signup = () => {
             <motion.div>
               <TextField
                 fullWidth
+                name="username"
                 type="text"
-                {...register("name", { required: "Username is required" })}
+                {...register("username", { required: "Username is required" })}
                 placeholder="Username"
               />
-              {errors.name && (
-                <FormHelperText error>{errors.name}</FormHelperText>
+              {errors.username && (
+                <FormHelperText error>
+                  {errors.username?.message}
+                </FormHelperText>
               )}
             </motion.div>
 
@@ -139,6 +142,7 @@ export const Signup = () => {
               <TextField
                 fullWidth
                 type="email"
+                name="email"
                 {...register("email", {
                   required: "Email is required",
                   pattern: {
@@ -150,13 +154,14 @@ export const Signup = () => {
                 placeholder="Email"
               />
               {errors.email && (
-                <FormHelperText error>{errors.email.message}</FormHelperText>
+                <FormHelperText error>{errors.email?.message}</FormHelperText>
               )}
             </motion.div>
 
             <motion.div>
               <TextField
                 fullWidth
+                name="password"
                 type="password"
                 {...register("password", {
                   required: "Password is required",
@@ -197,7 +202,6 @@ export const Signup = () => {
             <Button
               sx={{ height: "2.5rem" }}
               fullWidth
-              loading={status === "pending"}
               type="submit"
               variant="contained"
             >
