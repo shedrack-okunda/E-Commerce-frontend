@@ -42,38 +42,53 @@ export const Signup = () => {
   const is900 = useMediaQuery(theme.breakpoints.down(900));
   const is480 = useMediaQuery(theme.breakpoints.down(480));
 
-  //   handle user redirection
   useEffect(() => {
-    if (loggedInUser && !loggedInUser?.isVerified) {
+    if (status === "fulfilled") {
+      toast.success("Signup successful! Redirecting...");
+      reset();
       navigate("/verify-otp");
-    } else if (loggedInUser) {
-      navigate("/");
+    } else if (status === "failed") {
+      toast.error("Signup failed. Please try again.");
     }
-  }, [loggedInUser]);
+  }, [status, navigate]);
+
+  //   handle user redirection
+  // useEffect(() => {
+  //   if (loggedInUser && !loggedInUser?.isVerified) {
+  //     navigate("/verify-otp");
+  //   } else if (loggedInUser) {
+  //     navigate("/");
+  //   }
+  // }, [loggedInUser]);
 
   //   handle signup error and toast them
   useEffect(() => {
     if (error) {
       toast.error(error.message);
     }
-  }, [error]);
-
-  useEffect(() => {
-    if (status === "fulfilled") {
-      toast.success("Welcome! Verify your email to start shopping.");
-      reset();
-    }
 
     return () => {
       dispatch(clearSignupError());
-      dispatch(resetSignupStatus());
     };
-  }, [status]);
+  }, [error, dispatch]);
+
+  // useEffect(() => {
+  //   if (status === "fulfilled") {
+  //     toast.success("Welcome! Verify your email to start shopping.");
+  //     reset();
+  //   }
+
+  //   return () => {
+  //     dispatch(clearSignupError());
+  //     dispatch(resetSignupStatus());
+  //   };
+  // }, [status]);
 
   //   handles signup and dispatches the signup action with credentials that api requires
   const handleSignup = (data) => {
-    const cred = { ...data };
-    delete cred.confirmPassword;
+    const { confirmPassword, ...cred } = data;
+    // const cred = { ...data };
+    // delete cred.confirmPassword;
     dispatch(signupAsync(cred));
   };
 

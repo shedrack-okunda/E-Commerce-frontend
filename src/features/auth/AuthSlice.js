@@ -6,7 +6,7 @@ import {
   logout,
   resendOtp,
   resetPassword,
-  signupApi,
+  signup,
   verifyOtp,
 } from "./AuthApi";
 
@@ -36,7 +36,7 @@ export const signupAsync = createAsyncThunk(
   "auth/signupAsync",
   async (cred, { rejectWithValue }) => {
     try {
-      const res = await signupApi(cred);
+      const res = await signup(cred);
       return res;
     } catch (error) {
       return rejectWithValue(
@@ -57,12 +57,12 @@ export const loginAsync = createAsyncThunk("auth/loginAsync", async (cred) => {
 
 export const verifyOtpAsync = createAsyncThunk(
   "auth/verifyOtpAsync",
-  async (cred) => {
+  async (cred, { rejectWithValue }) => {
     try {
       const res = await verifyOtp(cred);
       return res;
     } catch (error) {
-      throw error.response.data;
+      return rejectWithValue(error.response?.data || "An error occurred");
     }
   },
 );
@@ -304,30 +304,35 @@ const authSlice = createSlice({
 });
 
 // exporting selectors
-export const selectAuthStatus = (state) => state.status;
-export const selectAuthErrors = (state) => state.errors;
-export const selectLoggedInUser = (state) => state.loggedInUser;
-export const selectAuthSuccessMessage = (state) => state.successMessage;
-export const selectIsAuthChecked = (state) => state.isAuthChecked;
-export const selectResendOtpStatus = (state) => state.resendOtpStatus;
+export const selectAuthStatus = (state) => state.auth.status;
+export const selectAuthErrors = (state) => state.auth.errors;
+export const selectLoggedInUser = (state) => state.auth.loggedInUser;
+export const selectAuthSuccessMessage = (state) => state.auth.successMessage;
+export const selectIsAuthChecked = (state) => state.auth.isAuthChecked;
+export const selectResendOtpStatus = (state) => state.auth.resendOtpStatus;
 export const selectResendOtpSuccessMessage = (state) =>
-  state.resendOtpSuccessMessage;
-export const selectResendOtpError = (state) => state.resendOtpError;
-export const selectSignupStatus = (state) => state.signupStatus;
-export const selectSignupError = (state) => state.signupError;
-export const selectLoginStatus = (state) => state.loginStatus;
-export const selectLoginError = (state) => state.loginError;
+  state.auth.resendOtpSuccessMessage;
+export const selectResendOtpError = (state) => state.auth.resendOtpError;
+export const selectSignupStatus = (state) => state.auth.signupStatus;
+export const selectSignupError = (state) => state.auth.signupError;
+export const selectLoginStatus = (state) => state.auth.loginStatus;
+export const selectLoginError = (state) => state.auth.loginError;
 export const selectOtpVerificationStatus = (state) =>
-  state.otpVerificationStatus;
-export const selectOtpVerificationError = (state) => state.otpVerificationError;
-export const selectForgotPasswordStatus = (state) => state.forgotPasswordStatus;
+  state.auth.otpVerificationStatus;
+export const selectOtpVerificationError = (state) =>
+  state.auth.otpVerificationError;
+export const selectForgotPasswordStatus = (state) =>
+  state.auth.forgotPasswordStatus;
 export const selectForgotPasswordSuccessMessage = (state) =>
-  state.forgotPasswordSuccessMessage;
-export const selectForgotPasswordError = (state) => state.forgotPasswordError;
-export const selectResetPasswordStatus = (state) => state.resetPasswordStatus;
+  state.auth.forgotPasswordSuccessMessage;
+export const selectForgotPasswordError = (state) =>
+  state.auth.forgotPasswordError;
+export const selectResetPasswordStatus = (state) =>
+  state.auth.resetPasswordStatus;
 export const selectResetPasswordSuccessMessage = (state) =>
-  state.resetPasswordSuccessMessage;
-export const selectResetPasswordError = (state) => state.resetPasswordError;
+  state.auth.resetPasswordSuccessMessage;
+export const selectResetPasswordError = (state) =>
+  state.auth.resetPasswordError;
 
 export const {
   clearAuthSuccessMessage,

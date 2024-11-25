@@ -1,6 +1,6 @@
 import { axio } from "../../config/axios";
 
-export const signupApi = async (cred) => {
+export const signup = async (cred) => {
   const res = await axio.post("auth/signup", cred);
   return res.data;
 };

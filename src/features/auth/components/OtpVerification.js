@@ -36,6 +36,7 @@ export const OtpVerification = () => {
   } = useForm();
   const dispatch = useDispatch();
   const loggedInUser = useSelector(selectLoggedInUser);
+  const userId = loggedInUser?._id;
   const navigate = useNavigate();
   const resendOtpStatus = useSelector(selectResendOtpStatus);
   const resendOtpError = useSelector(selectResendOtpError);
@@ -43,22 +44,34 @@ export const OtpVerification = () => {
   const otpVerificationStatus = useSelector(selectOtpVerificationStatus);
   const otpVerificationError = useSelector(selectOtpVerificationError);
 
-  //   handles the redirection
   useEffect(() => {
-    if (!loggedInUser) {
+    if (otpVerificationStatus === "fulfilled") {
+      toast.success("Email verified! Redirecting to login...");
       navigate("/login");
-    } else if (loggedInUser && loggedInUser?.isVerified) {
-      navigate("/");
+      dispatch(resetResendOtpStatus());
     }
-  }, [loggedInUser]);
+
+    return () => {
+      dispatch(resetOtpVerificationStatus());
+    };
+  }, [otpVerificationStatus, navigate, dispatch]);
+
+  //   handles the redirection
+  // useEffect(() => {
+  //   if (!loggedInUser) {
+  //     navigate("/login");
+  //   } else if (loggedInUser && loggedInUser?.isVerified) {
+  //     navigate("/");
+  //   }
+  // }, [loggedInUser]);
 
   const handleSendOtp = () => {
-    const data = { user: loggedInUser?._id };
+    const data = { user: userId };
     dispatch(resendOtpAsync(data));
   };
 
   const handleVerifyOtp = (data) => {
-    const cred = { ...data, userId: loggedInUser?._id };
+    const cred = { ...data, userId };
     dispatch(verifyOtpAsync(cred));
   };
 
