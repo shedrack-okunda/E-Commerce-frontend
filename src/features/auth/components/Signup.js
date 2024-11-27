@@ -42,53 +42,37 @@ export const Signup = () => {
   const is900 = useMediaQuery(theme.breakpoints.down(900));
   const is480 = useMediaQuery(theme.breakpoints.down(480));
 
+  // handles user redirection
   useEffect(() => {
-    if (status === "fulfilled") {
-      toast.success("Signup successful! Redirecting...");
-      reset();
+    if (loggedInUser && !loggedInUser?.isVerified) {
       navigate("/verify-otp");
-    } else if (status === "failed") {
-      toast.error("Signup failed. Please try again.");
+    } else if (loggedInUser) {
+      navigate("/");
     }
-  }, [status, navigate]);
+  }, [loggedInUser]);
 
-  //   handle user redirection
-  // useEffect(() => {
-  //   if (loggedInUser && !loggedInUser?.isVerified) {
-  //     navigate("/verify-otp");
-  //   } else if (loggedInUser) {
-  //     navigate("/");
-  //   }
-  // }, [loggedInUser]);
-
-  //   handle signup error and toast them
+  // handles signup error and toast them
   useEffect(() => {
     if (error) {
       toast.error(error.message);
     }
+  }, [error]);
 
+  useEffect(() => {
+    if (status === "fulfilled") {
+      // toast.success("Welcome! Verify your email to start shopping.");
+      reset();
+    }
     return () => {
       dispatch(clearSignupError());
+      dispatch(resetSignupStatus());
     };
-  }, [error, dispatch]);
+  }, [status]);
 
-  // useEffect(() => {
-  //   if (status === "fulfilled") {
-  //     toast.success("Welcome! Verify your email to start shopping.");
-  //     reset();
-  //   }
-
-  //   return () => {
-  //     dispatch(clearSignupError());
-  //     dispatch(resetSignupStatus());
-  //   };
-  // }, [status]);
-
-  //   handles signup and dispatches the signup action with credentials that api requires
+  // this function handles signup and dispatches the signup action with cred that api requires
   const handleSignup = (data) => {
-    const { confirmPassword, ...cred } = data;
-    // const cred = { ...data };
-    // delete cred.confirmPassword;
+    const cred = { ...data };
+    delete cred.confirmPassword;
     dispatch(signupAsync(cred));
   };
 

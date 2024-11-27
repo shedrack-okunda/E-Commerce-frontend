@@ -41,30 +41,39 @@ export const Login = () => {
   const is900 = useMediaQuery(theme.breakpoints.down(900));
   const is480 = useMediaQuery(theme.breakpoints.down(480));
 
+  // handles user redirection
+
   useEffect(() => {
-    if (status === "fulfilled") {
-      toast.success("Login Successful");
-      reset();
+    if (loggedInUser && loggedInUser?.data.isVerified) {
       navigate("/");
-    } else if (status === "rejected") {
-      toast.error("Login failed. Please check your credentials.");
+    } else if (loggedInUser && !loggedInUser?.data.isVerified) {
+      navigate("/verify-otp");
     }
+  }, [loggedInUser]);
 
-    dispatch(clearLoginError());
-    dispatch(resetLoginStatus());
-  }, [status, navigate, dispatch, reset]);
-
-  //   handle login error and toast them
+  // handles login error and toast them
   useEffect(() => {
     if (error) {
       toast.error(error.message);
     }
   }, [error]);
 
-  const handleLogin = async (data) => {
+  // handles login status and dispatches reset actions to relevant states in cleanup
+  useEffect(() => {
+    if (status === "fulfilled" && loggedInUser?.isVerified === true) {
+      toast.success(`Login successful`);
+      reset();
+    }
+    return () => {
+      dispatch(clearLoginError());
+      dispatch(resetLoginStatus());
+    };
+  }, [status]);
+
+  const handleLogin = (data) => {
     const cred = { ...data };
     delete cred.confirmPassword;
-    await dispatch(loginAsync(cred));
+    dispatch(loginAsync(cred));
   };
 
   return (

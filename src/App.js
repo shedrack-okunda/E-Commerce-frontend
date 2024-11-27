@@ -13,13 +13,16 @@ import { useAuthCheck } from "./hooks/useAuthCheck";
 import { useFetchLoggedInUserDetails } from "./hooks/useFetchLoggedInUserDetails";
 import {
   ForgotPasswordPage,
+  HomePage,
   LoginPage,
   OtpVerificationPage,
+  ProductDetailsPage,
   ResetPasswordPage,
   SignupPage,
 } from "./pages";
 import { Protected } from "./features/auth/components/Protected";
 import { Logout } from "./features/auth/components/Logout";
+import { NotFoundPage } from "./pages/NotFoundPage";
 
 function App() {
   const isAuthChecked = useSelector(selectIsAuthChecked);
@@ -49,11 +52,33 @@ function App() {
             </Protected>
           }
         />
+        <Route
+          exact
+          path="/product-details/:id"
+          element={
+            <Protected>
+              <ProductDetailsPage />
+            </Protected>
+          }
+        />
+        {
+          <>
+            <Route
+              path="/"
+              element={
+                <Protected>
+                  <HomePage />
+                </Protected>
+              }
+            />
+          </>
+        }
+        <Route path="*" element={<NotFoundPage />} />
       </>,
     ),
   );
 
-  return <RouterProvider router={routes} />;
+  return isAuthChecked ? <RouterProvider router={routes} /> : "";
 }
 
 export default App;

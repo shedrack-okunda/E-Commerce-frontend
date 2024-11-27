@@ -20,7 +20,7 @@ export const fetchAllBrandsAsync = createAsyncThunk(
 );
 
 const brandSlice = createSlice({
-  name: "brandSlice",
+  name: "brand",
   initialState: initialState,
   reducers: {},
 
@@ -41,8 +41,8 @@ const brandSlice = createSlice({
 });
 
 // exporting selectors
-export const selectBrandStatus = (state) => state.BrandSlice.status;
-export const selectBrands = (state) => state.BrandSlice.brands;
-export const selectBrandErrors = (state) => state.BrandSlice.errors;
+export const selectBrandStatus = (state) => state.brand.status;
+export const selectBrands = (state) => state.brand.brands;
+export const selectBrandErrors = (state) => state.brand.errors;
 
 export default brandSlice.reducer;

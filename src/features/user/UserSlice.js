@@ -33,7 +33,7 @@ export const updateUserByIdAsync = createAsyncThunk(
 );
 
 const userSlice = createSlice({
-  name: "userSlice",
+  name: "user",
   initialState: initialState,
   reducers: {},
 
@@ -66,9 +66,9 @@ const userSlice = createSlice({
 });
 
 // exporting selectors
-export const selectUserStatus = (state) => state.status;
-export const selectUserInfo = (state) => state.userInfo;
-export const selectUserErrors = (state) => state.errors;
-export const selectUserSuccessMessage = (state) => state.successMessage;
+export const selectUserStatus = (state) => state.user.status;
+export const selectUserInfo = (state) => state.user.userInfo;
+export const selectUserErrors = (state) => state.user.errors;
+export const selectUserSuccessMessage = (state) => state.user.successMessage;
 
 export default userSlice.reducer;

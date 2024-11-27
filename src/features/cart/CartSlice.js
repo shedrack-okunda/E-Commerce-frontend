@@ -77,7 +77,7 @@ export const resetCartByUserIdAsync = createAsyncThunk(
 );
 
 const cartSlice = createSlice({
-  name: "cartSlice",
+  name: "cart",
   initialState: initialState,
   reducers: {
     resetCartItemAddStatus: (state) => {
@@ -159,15 +159,13 @@ const cartSlice = createSlice({
 });
 
 // exporting selectors
-export const selectCartStatus = (state) => state.CartSlice.status;
-export const selectCartItems = (state) => state.CartSlice.items;
-export const selectCartErrors = (state) => state.CartSlice.errors;
-export const selectCartSuccessMessage = (state) =>
-  state.CartSlice.successMessage;
-export const selectCartItemAddStatus = (state) =>
-  state.CartSlice.cartItemAddStatus;
+export const selectCartStatus = (state) => state.cart.status;
+export const selectCartItems = (state) => state.cart.items;
+export const selectCartErrors = (state) => state.cart.errors;
+export const selectCartSuccessMessage = (state) => state.cart.successMessage;
+export const selectCartItemAddStatus = (state) => state.cart.cartItemAddStatus;
 export const selectCartItemRemoveStatus = (state) =>
-  state.CartSlice.cartItemRemoveStatus;
+  state.cart.cartItemRemoveStatus;
 
 // exporting reducers
 export const { resetCartItemAddStatus, resetCartItemRemoveStatus } =

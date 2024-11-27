@@ -36,7 +36,6 @@ export const OtpVerification = () => {
   } = useForm();
   const dispatch = useDispatch();
   const loggedInUser = useSelector(selectLoggedInUser);
-  const userId = loggedInUser?._id;
   const navigate = useNavigate();
   const resendOtpStatus = useSelector(selectResendOtpStatus);
   const resendOtpError = useSelector(selectResendOtpError);
@@ -44,65 +43,50 @@ export const OtpVerification = () => {
   const otpVerificationStatus = useSelector(selectOtpVerificationStatus);
   const otpVerificationError = useSelector(selectOtpVerificationError);
 
+  // handles the redirection
   useEffect(() => {
-    if (otpVerificationStatus === "fulfilled") {
-      toast.success("Email verified! Redirecting to login...");
+    if (!loggedInUser) {
       navigate("/login");
-      dispatch(resetResendOtpStatus());
+    } else if (loggedInUser && loggedInUser?.isVerified) {
+      navigate("/");
     }
-
-    return () => {
-      dispatch(resetOtpVerificationStatus());
-    };
-  }, [otpVerificationStatus, navigate, dispatch]);
-
-  //   handles the redirection
-  // useEffect(() => {
-  //   if (!loggedInUser) {
-  //     navigate("/login");
-  //   } else if (loggedInUser && loggedInUser?.isVerified) {
-  //     navigate("/");
-  //   }
-  // }, [loggedInUser]);
+  }, [loggedInUser]);
 
   const handleSendOtp = () => {
-    const data = { user: userId };
+    const data = { user: loggedInUser?._id };
     dispatch(resendOtpAsync(data));
   };
 
   const handleVerifyOtp = (data) => {
-    const cred = { ...data, userId };
+    const cred = { ...data, userId: loggedInUser?._id };
     dispatch(verifyOtpAsync(cred));
   };
 
-  //   handles resend otp error
+  // handles resend otp error
   useEffect(() => {
     if (resendOtpError) {
       toast.error(resendOtpError.message);
     }
-
     return () => {
       dispatch(clearResendOtpError());
     };
   }, [resendOtpError]);
 
-  //   handles resend otp success message
+  // handles resend otp success message
   useEffect(() => {
     if (resendOtpSuccessMessage) {
-      toast.success(resendOtpSuccessMessage.message);
+      // toast.success(resendOtpSuccessMessage.message);
     }
-
     return () => {
       dispatch(clearResendOtpSuccessMessage());
     };
   }, [resendOtpSuccessMessage]);
 
-  //   handles error while verifying otp
+  // handles error while verifying otp
   useEffect(() => {
     if (otpVerificationError) {
       toast.error(otpVerificationError.message);
     }
-
     return () => {
       dispatch(clearOtpVerificationError());
     };
@@ -110,10 +94,9 @@ export const OtpVerification = () => {
 
   useEffect(() => {
     if (otpVerificationStatus === "fulfilled") {
-      toast.success("Email verified! We are happy to have you here.");
+      // toast.success("Email verified! We are happy to have you here");
       dispatch(resetResendOtpStatus());
     }
-
     return () => {
       dispatch(resetOtpVerificationStatus());
     };

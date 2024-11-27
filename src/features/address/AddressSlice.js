@@ -65,7 +65,7 @@ export const deleteAddressByIdAsync = createAsyncThunk(
 );
 
 const addressSlice = createSlice({
-  name: "addressSlice",
+  name: "address",
   initialState: initialState,
   reducers: {
     resetAddressStatus: (state) => {
@@ -143,17 +143,16 @@ const addressSlice = createSlice({
 });
 
 // exporting selectors
-export const selectAddressStatus = (state) => state.AddressSlice.status;
-export const selectAddresses = (state) => state.AddressSlice.addresses;
-export const selectAddressErrors = (state) => state.AddressSlice.errors;
+export const selectAddressStatus = (state) => state.address.status;
+export const selectAddresses = (state) => state.address.addresses;
+export const selectAddressErrors = (state) => state.address.errors;
 export const selectAddressSuccessMessage = (state) =>
-  state.AddressSlice.successMessage;
-export const selectAddressAddStatus = (state) =>
-  state.AddressSlice.addressAddStatus;
+  state.address.successMessage;
+export const selectAddressAddStatus = (state) => state.address.addressAddStatus;
 export const selectAddressDeleteStatus = (state) =>
-  state.AddressSlice.addressDeleteStatus;
+  state.address.addressDeleteStatus;
 export const selectAddressUpdateStatus = (state) =>
-  state.AddressSlice.addressUpdateStatus;
+  state.address.addressUpdateStatus;
 
 // exporting reducers
 export const {

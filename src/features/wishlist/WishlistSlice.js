@@ -66,7 +66,7 @@ export const deleteWishlistItemByIdAsync = createAsyncThunk(
 );
 
 const wishlistSlice = createSlice({
-  name: "wishlistSlice",
+  name: "wishlist",
   initialState: initialState,
   reducers: {
     resetWishlistItemUpdateStatus: (state) => {
@@ -145,20 +145,20 @@ const wishlistSlice = createSlice({
 });
 
 // exporting selectors
-export const selectWishlistItems = (state) => state.WishlistSlice.items;
+export const selectWishlistItems = (state) => state.wishlist.items;
 export const selectWishlistFetchStatus = (state) =>
-  state.WishlistSlice.wishlistFetchStatus;
+  state.wishlist.wishlistFetchStatus;
 export const selectWishlistItemUpdateStatus = (state) =>
-  state.WishlistSlice.wishlistItemUpdateStatus;
+  state.wishlist.wishlistItemUpdateStatus;
 export const selectWishlistItemAddStatus = (state) =>
-  state.WishlistSlice.wishlistItemAddStatus;
+  state.wishlist.wishlistItemAddStatus;
 export const selectWishlistItemDeleteStatus = (state) =>
-  state.WishlistSlice.wishlistItemDeleteStatus;
-export const selectWishlistErrors = (state) => state.WishlistSlice.errors;
+  state.wishlist.wishlistItemDeleteStatus;
+export const selectWishlistErrors = (state) => state.wishlist.errors;
 export const selectWishlistSuccessMessage = (state) =>
-  state.WishlistSlice.successMessage;
+  state.wishlist.successMessage;
 export const selectWishlistTotalResults = (state) =>
-  state.WishlistSlice.totalResults;
+  state.wishlist.totalResults;
 
 // exporting actions
 export const {

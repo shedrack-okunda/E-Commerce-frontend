@@ -5,7 +5,7 @@ import { Navigate } from "react-router";
 export const Protected = ({ children }) => {
   const loggedInUser = useSelector(selectLoggedInUser);
 
-  if (loggedInUser?.isVerified) {
+  if (loggedInUser?.data.isVerified) {
     return children;
   }
 
