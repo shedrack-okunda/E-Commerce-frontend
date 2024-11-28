@@ -5,6 +5,7 @@ import { ForgotPasswordPage } from "./ForgotPasswordPage";
 import { ResetPasswordPage } from "./ResetPasswordPage";
 import { ProductDetailsPage } from "./ProductDetailsPage";
 import { HomePage } from "./HomePage";
+import { UserProfilePage } from "./UserProfilePage";
 
 export {
   SignupPage,
@@ -14,4 +15,5 @@ export {
   ResetPasswordPage,
   HomePage,
   ProductDetailsPage,
+  UserProfilePage,
 };

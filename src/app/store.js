@@ -6,6 +6,7 @@ import addressReducer from "../features/address/AddressSlice";
 import userReducer from "../features/user/UserSlice";
 import wishlistReducer from "../features/wishlist/WishlistSlice";
 import brandReducer from "../features/brands/BrandSlice";
+import reviewReducer from "../features/review/ReviewSlice";
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -15,5 +16,6 @@ const rootReducer = combineReducers({
   user: userReducer,
   wishlist: wishlistReducer,
   brand: brandReducer,
+  review: reviewReducer,
 });
 export const store = configureStore({ reducer: rootReducer });

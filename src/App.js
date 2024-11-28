@@ -19,6 +19,7 @@ import {
   ProductDetailsPage,
   ResetPasswordPage,
   SignupPage,
+  UserProfilePage,
 } from "./pages";
 import { Protected } from "./features/auth/components/Protected";
 import { Logout } from "./features/auth/components/Logout";
@@ -68,6 +69,14 @@ function App() {
               element={
                 <Protected>
                   <HomePage />
+                </Protected>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <Protected>
+                  <UserProfilePage />
                 </Protected>
               }
             />
