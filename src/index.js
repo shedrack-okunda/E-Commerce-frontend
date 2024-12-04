@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
+import {createRoot} from "react-dom/client";
 import App from "./App";
 import { ThemeProvider } from "@mui/material";
 import { Provider } from "react-redux";
@@ -7,7 +7,7 @@ import { ToastContainer } from "react-toastify";
 import theme from "./theme/theme";
 import { store } from "./app/store";
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
